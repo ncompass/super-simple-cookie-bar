@@ -10,6 +10,7 @@
  * Text Domain:       ncompass-cookie-bar
  * GitHub Plugin URI: https://github.com/ncompass/ncompass-cookie-bar
  * Release Asset:     true
+ * Primary Branch:    main
  */
 
 /** Settings Page **/
