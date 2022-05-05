@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       NCompass Simple Cookie Bar - TEST
+ * Plugin Name:       NCompass Simple Cookie Bar
  * Plugin URI:        https://www.ncompass.co.uk
  * Description:       A super simple plugin that provides a super simple cookie bar notice.
  * Version:           0.0.1
