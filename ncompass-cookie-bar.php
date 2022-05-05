@@ -9,6 +9,7 @@
  * License:           GPLv2 or later
  * Text Domain:       ncompass-cookie-bar
  * GitHub Plugin URI: ncompass/ncompass-cookie-bar
+ * Release Asset:     true
  * GitHub Plugin URI: https://github.com/ncompass/ncompass-cookie-bar
  */
 
