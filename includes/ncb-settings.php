@@ -1,9 +1,9 @@
 <?php
 /** Add Settings Page and Fields **/
-function dbi_add_settings_page() {
+function ncb_add_settings_page() {
     add_options_page( 'NCompass Cookie Bar', 'NCompass Cookie Bar', 'manage_options', 'ncompass-cookie-bar', 'ncb_render_plugin_settings_page' );
 }
-add_action( 'admin_menu', 'dbi_add_settings_page' );
+add_action( 'admin_menu', 'ncb_add_settings_page' );
 
 function ncb_render_plugin_settings_page() {
     ?>
@@ -72,11 +72,3 @@ function ncb_plugin_setting_btn_border() {
     $options = get_option( 'ncb_plugin_options' );
     echo "<input id='ncb_plugin_setting_btn_border' name='ncb_plugin_options[btn_border]' type='text' value='" . esc_attr( $options['btn_border'] ) . "' />";
 }
-
-function ncb_settings_link($links) {
-  $settings_link = '<a href="options-general.php?page=ncompass-cookie-bar">Settings</a>';
-  array_unshift($links, $settings_link);
-  return $links;
-}
-$plugin = plugin_basename(__FILE__);
-add_filter("plugin_action_links_$plugin", 'ncb_settings_link' );

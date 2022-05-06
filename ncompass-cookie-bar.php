@@ -14,6 +14,14 @@
 
 /** Settings Page **/
 require('includes/ncb-settings.php');
+function ncb_action_links ( $actions ) {
+   $mylinks = array(
+      '<a href="' . admin_url( 'options-general.php?page=ncompass-cookie-bar' ) . '">Settings</a>',
+   );
+   $actions = array_merge( $actions, $mylinks );
+   return $actions;
+}
+add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), 'ncb_action_links' );
 
 /** If enabled add scipt, css and json **/
 if(get_option('ncb_plugin_options')){
