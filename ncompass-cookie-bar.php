@@ -3,7 +3,7 @@
  * Plugin Name:       NCompass Simple Cookie Bar
  * Plugin URI:        https://www.ncompass.co.uk
  * Description:       A super simple plugin that provides a super simple cookie bar notice.
- * Version:           0.0.3
+ * Version:           0.0.4
  * Author:            NCompass Ltd
  * Author URI:        https://www.ncompass.co.uk
  * License:           GPLv2 or later
@@ -45,26 +45,47 @@ function ncb_init_options(){
   $script = 'window.cookieconsent.initialise({
     "palette": {
       "popup": {
-        "background": "'.($ncb_options['bar_bg'] ?? '#000').'",
-        "text": "'.($ncb_options['bar_txt'] ?? '#fff').'"
+        "background": "'.($ncb_options['bar_bg'] ?? $ncb_options['bar_bg'] ?: '#000').'",
+        "text": "'.($ncb_options['bar_txt'] ?? $ncb_options['bar_txt'] ?: '#fff').'"
       },
       "button": {
-        "background": "'.($ncb_options['btn_bg'] ?? '#fff').'",
-        "text": "'.($ncb_options['btn_txt'] ?? '#000').'",
-        "border": "'.($ncb_options['btn_border'] ?? '#fff').'"
+        "background": "'.($ncb_options['theme'] == 'wire' ? 'transparent' : $ncb_options['btn_bg'] ?? $ncb_options['btn_bg'] ?: '#fff').'",
+        "text": "'.($ncb_options['theme'] == 'wire' ? $ncb_options['btn_border'] ?? $ncb_options['btn_border'] ?: '#fff' : $ncb_options['btn_txt'] ?? $ncb_options['btn_txt'] ?: '#000').'",
+        "border": "'.($ncb_options['btn_border'] ?? $ncb_options['btn_border'] ?: '#fff').'"
       },
     },
-    "content": {
-      link: false
-    },
-    "theme": "edgeless",';
+    "theme": "'.($ncb_options['theme'] ?? $ncb_options['theme'] ?: 'block').'",
+    ';
+
+    //position
     if ($ncb_options['position'] == 'top-static'){
       $script .= '"position": "top",
-      "static": true';
+      "static": true,
+      ';
     }
     else{
-      $script .= '"position": "'.($ncb_options['position'] ?? 'bottom').'"';
+      $script .= '"position": "'.($ncb_options['position'] ?? $ncb_options['position'] ?: 'bottom').'",
+      ';
     }
-  $script .= '});';
+
+    //content
+    $script .= '"content": {
+      "message": "'.($ncb_options['message'] ?? $ncb_options['message'] ?: 'This website uses cookies to ensure you get the best experience on our website.').'",
+      "dismiss": "'.($ncb_options['dismiss'] ?? $ncb_options['dismiss'] ?: 'Got it!').'",
+      ';
+    if ($ncb_options['href'] != NULL){
+      $script .= '"link": "'.($ncb_options['link'] ?? $ncb_options['link'] ?: 'Learn More').'",
+      "href": "'.$ncb_options['href'].'"
+      ';
+    }
+    else{
+      $script .= '"link": false
+      ';
+    }
+    $script .= '}
+    ';
+  $script .= '});
+  ';
+
   return $script;
 }
