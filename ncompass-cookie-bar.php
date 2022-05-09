@@ -3,7 +3,7 @@
  * Plugin Name:       NCompass Simple Cookie Bar
  * Plugin URI:        https://www.ncompass.co.uk
  * Description:       A super simple plugin that provides a super simple cookie bar notice.
- * Version:           0.0.2
+ * Version:           0.0.3
  * Author:            NCompass Ltd
  * Author URI:        https://www.ncompass.co.uk
  * License:           GPLv2 or later
@@ -45,19 +45,26 @@ function ncb_init_options(){
   $script = 'window.cookieconsent.initialise({
     "palette": {
       "popup": {
-        "background": "'.$ncb_options['bar_bg'].'",
-        "text": "'.$ncb_options['bar_txt'].'"
+        "background": "'.($ncb_options['bar_bg'] ?? '#000').'",
+        "text": "'.($ncb_options['bar_txt'] ?? '#fff').'"
       },
       "button": {
-        "background": "'.$ncb_options['btn_bg'].'",
-        "text": "'.$ncb_options['btn_txt'].'",
-        "border": "'.$ncb_options['btn_border'].'"
+        "background": "'.($ncb_options['btn_bg'] ?? '#fff').'",
+        "text": "'.($ncb_options['btn_txt'] ?? '#000').'",
+        "border": "'.($ncb_options['btn_border'] ?? '#fff').'"
       },
     },
     "content": {
       link: false
     },
-    "theme": "edgeless"
-  });';
+    "theme": "edgeless",';
+    if ($ncb_options['position'] == 'top-static'){
+      $script .= '"position": "top",
+      "static": true';
+    }
+    else{
+      $script .= '"position": "'.($ncb_options['position'] ?? 'bottom').'"';
+    }
+  $script .= '});';
   return $script;
 }

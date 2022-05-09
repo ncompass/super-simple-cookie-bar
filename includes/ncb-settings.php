@@ -21,6 +21,7 @@ function ncb_register_settings() {
     register_setting( 'ncb_plugin_options', 'ncb_plugin_options', 'ncb_plugin_options_validate' );
     add_settings_section( 'ncb_general', 'General Settings', 'ncb_general_text', 'ncb_plugin' );
     add_settings_field( 'ncb_plugin_setting_enabled', 'Enable Cookie Bar', 'ncb_plugin_setting_enabled', 'ncb_plugin', 'ncb_general');
+    add_settings_field( 'ncb_plugin_setting_position', 'Cookie Bar Position', 'ncb_plugin_setting_position', 'ncb_plugin', 'ncb_general');
 
     add_settings_section( 'ncb_bar_styles', 'Cookie Bar Styles', 'ncb_bar_styles_text', 'ncb_plugin' );
     add_settings_field( 'ncb_plugin_setting_bar_bg', 'Background Colour', 'ncb_plugin_setting_bar_bg', 'ncb_plugin', 'ncb_bar_styles' );
@@ -42,6 +43,16 @@ function ncb_plugin_options_validate( $input ) {
 function ncb_plugin_setting_enabled() {
     $options = get_option( 'ncb_plugin_options' );
     echo "<input id='ncb_plugin_setting_enabled' name='ncb_plugin_options[enabled]' type='checkbox' value='1'" . checked( 1, $options['enabled'], false ) .  "' />";
+}
+function ncb_plugin_setting_position() {
+  $options = get_option( 'ncb_plugin_options' );
+  echo "<select name='ncb_plugin_options[position]'>";
+    echo "<option value='bottom' ".selected($options['position'], "bottom")." >Banner Bottom</option>";
+    echo "<option value='top' ".selected($options['position'], "top")." >Banner Top</option>";
+    echo "<option value='top-static' ".selected($options['position'], "top-static")." >Banner Top (Pushdown)</option>";
+    echo "<option value='bottom-left' ".selected($options['position'], "bottom-left")." >Floating Left</option>";
+    echo "<option value='bottom-right' ".selected($options['position'], "bottom-right")." >Floating Right</option>";
+  echo "</select>";
 }
 
 function ncb_bar_styles_text() {
