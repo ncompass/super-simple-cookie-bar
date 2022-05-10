@@ -100,8 +100,8 @@ function ncb_init_options(){
       ';
     if ($ncb_options['href'] != NULL){
 
-      $script .= '"link": "'.__($ncb_options['link'], 'ncompass-cookie-bar').'",
-      "href": "'.__($ncb_options['href'], 'ncompass-cookie-bar').'"
+      $script .= '"link": "'.$ncb_options['link'].'",
+      "href": "'.$ncb_options['href'].'"
       ';
     }
     else{
