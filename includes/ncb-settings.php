@@ -7,7 +7,7 @@ add_action( 'admin_menu', 'ncb_add_settings_page' );
 
 function ncb_render_plugin_settings_page() {
     ?>
-    <h2>Cookie Bar Settings</h2>
+    <h1>NCompass Cookie Bar Settings</h1>
     <form action="options.php" method="post">
         <?php
         settings_fields( 'ncb_plugin_options' );
@@ -28,7 +28,7 @@ function ncb_register_settings() {
     add_settings_field( 'ncb_plugin_setting_bar_bg', 'Background Colour', 'ncb_plugin_setting_bar_bg', 'ncb_plugin', 'ncb_bar_styles' );
     add_settings_field( 'ncb_plugin_setting_bar_txt', 'Text Colour', 'ncb_plugin_setting_bar_txt', 'ncb_plugin', 'ncb_bar_styles' );
 
-    add_settings_section( 'ncb_btn_styles', 'Cookie Button Styles', 'ncb_button_styles_text', 'ncb_plugin' );
+    add_settings_section( 'ncb_btn_styles', 'Cookie Button Styles', 'ncb_btn_styles_text', 'ncb_plugin' );
     add_settings_field( 'ncb_plugin_setting_btn_bg', 'Background Colour', 'ncb_plugin_setting_btn_bg', 'ncb_plugin', 'ncb_btn_styles' );
     add_settings_field( 'ncb_plugin_setting_btn_txt', 'Text Colour', 'ncb_plugin_setting_btn_txt', 'ncb_plugin', 'ncb_btn_styles' );
     add_settings_field( 'ncb_plugin_setting_btn_border', 'Border Colour', 'ncb_plugin_setting_btn_border', 'ncb_plugin', 'ncb_btn_styles' );
@@ -44,7 +44,15 @@ add_action( 'admin_init', 'ncb_register_settings' );
 
 
 function ncb_plugin_options_validate( $input ) {
-    return $input;
+  //we can add validation here
+
+  //Register Strings for WPML translation
+  do_action( 'wpml_register_single_string', 'ncompass-cookie-bar', 'Message', ($input['message'] ?? $input['message'] ?: 'This website uses cookies to ensure you get the best experience on our website.' ) );
+  do_action( 'wpml_register_single_string', 'ncompass-cookie-bar', 'Dismiss/Accept Text', ($input['dismiss'] ?? $input['dismiss'] ?: 'Got it!') );
+  do_action( 'wpml_register_single_string', 'ncompass-cookie-bar', 'Learn More Link Text', ($input['link'] ?? $input['link'] ?: 'Learn More') );
+
+
+  return $input;
 }
 
 
@@ -58,20 +66,20 @@ function ncb_plugin_setting_enabled() {
 function ncb_plugin_setting_theme() {
   $options = get_option( 'ncb_plugin_options' );
   echo "<select name='ncb_plugin_options[theme]'>";
-    echo "<option value='block' ".selected($options['theme'], "block")." >Block</option>";
-    echo "<option value='edgeless' ".selected($options['theme'], "edgeless")." >Edgeless</option>";
-    echo "<option value='classic' ".selected($options['theme'], "classic")." >Classic</option>";
-    echo "<option value='wire' ".selected($options['theme'], "wire")." >Wire</option>";
+    echo "<option value='block' ".selected($options['theme'], "block")." >".__('Block', 'ncompass-cookie-bar')."</option>";
+    echo "<option value='edgeless' ".selected($options['theme'], "edgeless")." >".__('Edgeless', 'ncompass-cookie-bar')."</option>";
+    echo "<option value='classic' ".selected($options['theme'], "classic")." >".__('Classic', 'ncompass-cookie-bar')."</option>";
+    echo "<option value='wire' ".selected($options['theme'], "wire")." >".__('Wire', 'ncompass-cooke-bar')."</option>";
   echo "</select>";
 }
 function ncb_plugin_setting_position() {
   $options = get_option( 'ncb_plugin_options' );
   echo "<select name='ncb_plugin_options[position]'>";
-    echo "<option value='bottom' ".selected($options['position'], "bottom")." >Banner Bottom</option>";
-    echo "<option value='top' ".selected($options['position'], "top")." >Banner Top</option>";
-    echo "<option value='top-static' ".selected($options['position'], "top-static")." >Banner Top (Pushdown)</option>";
-    echo "<option value='bottom-left' ".selected($options['position'], "bottom-left")." >Floating Left</option>";
-    echo "<option value='bottom-right' ".selected($options['position'], "bottom-right")." >Floating Right</option>";
+    echo "<option value='bottom' ".selected($options['position'], "bottom")." >".__('Banner Bottom', 'ncompass-cookie-bar')."</option>";
+    echo "<option value='top' ".selected($options['position'], "top")." >".__('Banner Top', 'ncompass-cookie-bar')."</option>";
+    echo "<option value='top-static' ".selected($options['position'], "top-static")." >".__('Banner Top (Pushdown)', 'ncompass-cookie-bar')."</option>";
+    echo "<option value='bottom-left' ".selected($options['position'], "bottom-left")." >".__('Floating Left', 'ncompass-cookie-bar')."</option>";
+    echo "<option value='bottom-right' ".selected($options['position'], "bottom-right")." >".__('Floating Right', 'ncompass-cookie-bar')."</option>";
   echo "</select>";
 }
 
@@ -80,15 +88,15 @@ function ncb_content_text() {
 }
 function ncb_plugin_setting_message() {
     $options = get_option( 'ncb_plugin_options' );
-    echo "<input id='ncb_plugin_setting_message' name='ncb_plugin_options[message]' type='text' placeholder='This website uses cookies to ensure you get the best experience on our website.' value='" . esc_attr( $options['message'] ) . "' style='width:100%;' />";
+    echo "<input id='ncb_plugin_setting_message' name='ncb_plugin_options[message]' type='text' placeholder='".__('This website uses cookies to ensure you get the best experience on our website.', 'ncompass-cookie-bar')."' value='" . esc_attr( $options['message'] ) . "' style='width:100%;' />";
 }
 function ncb_plugin_setting_dismiss() {
     $options = get_option( 'ncb_plugin_options' );
-    echo "<input id='ncb_plugin_setting_dismiss' name='ncb_plugin_options[dismiss]' type='text' placeholder='Got it!' value='" . esc_attr( $options['dismiss'] ) . "' />";
+    echo "<input id='ncb_plugin_setting_dismiss' name='ncb_plugin_options[dismiss]' type='text' placeholder='".__('Got it!', 'ncompass-cookie-bar')."' value='" . esc_attr( $options['dismiss'] ) . "' />";
 }
 function ncb_plugin_setting_link() {
     $options = get_option( 'ncb_plugin_options' );
-    echo "<input id='ncb_plugin_setting_link' name='ncb_plugin_options[link]' type='text' placeholder='Learn more' value='" . esc_attr( $options['link'] ) . "' />";
+    echo "<input id='ncb_plugin_setting_link' name='ncb_plugin_options[link]' type='text' placeholder='".__('Learn more', 'ncompass-cookie-bar')."' value='" . esc_attr( $options['link'] ) . "' />";
 }
 function ncb_plugin_setting_href() {
     $options = get_option( 'ncb_plugin_options' );

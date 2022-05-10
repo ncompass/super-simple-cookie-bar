@@ -1,3 +1,9 @@
+#### 0.0.5 / 2022-05-10
+* Moved data collection outside init() building.
+* Added wordpress localisation to settings Page.
+* Added WPML string translation Compatibility to input user data.
+* Added WPML permalink filter to learn more link href field
+
 #### 0.0.4 / 2022-05-09
 * Added theme setting.
 * Added message setting.
