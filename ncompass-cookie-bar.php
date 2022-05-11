@@ -3,7 +3,7 @@
  * Plugin Name:       NCompass Simple Cookie Bar
  * Plugin URI:        https://www.ncompass.co.uk
  * Description:       A super simple plugin that provides a super simple cookie bar notice.
- * Version:           0.0.5
+ * Version:           0.0.6
  * Author:            NCompass Ltd
  * Author URI:        https://www.ncompass.co.uk
  * License:           GPLv2 or later
@@ -63,7 +63,7 @@ function ncb_init_options(){
   //Apply WPML String translation
   $ncb_options['message'] = apply_filters('wpml_translate_single_string', $ncb_options['message'], 'ncompass-cookie-bar', 'Message');
   $ncb_options['dismiss'] = apply_filters('wpml_translate_single_string', $ncb_options['dismiss'], 'ncompass-cookie-bar', 'Dismiss/Accept Text');
-  $ncb_options['link'] = apply_filters('wpml_translate_single_string', $ncb_options['link'], 'ncompass-cookie-bar', 'Link Text');
+  $ncb_options['link'] = apply_filters('wpml_translate_single_string', $ncb_options['link'], 'ncompass-cookie-bar', 'Learn More Link Text');
   $ncb_options['href'] = ( $ncb_options['href'] != NULL ? apply_filters('wpml_permalink', $ncb_options['href'], apply_filters( 'wpml_current_language', NULL ), true) : NULL);
 
   //build json init script

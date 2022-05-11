@@ -1,3 +1,6 @@
+#### 0.0.6 / 2022-05-11
+* Fixed WPML string translation on Learn More Link text
+
 #### 0.0.5 / 2022-05-10
 * Moved data collection outside init() building.
 * Added wordpress localisation to settings Page.
