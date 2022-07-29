@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Super Simple Cookie Bar by NCompass
  * Description:       A super simple plugin that provides a super simple cookie bar notice.
- * Version:           0.0.7
+ * Version:           0.0.8
  * Author:            NCompass Ltd
  * Author URI:        https://www.ncompass.co.uk
  * License:           GPLv2 or later
