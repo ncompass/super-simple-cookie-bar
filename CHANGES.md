@@ -1,3 +1,12 @@
+#### 0.0.7 / 2022-07-28
+* Added function headers etc for wordpress.org compliance
+* Added wordpress.org readme.txt
+* Added uninstall script
+* Added choice for locally hosted assets or jsdeliver
+* Added data validation and sanitisation
+* Switch to Yoda Conditions
+* Improved code readbility and formatting
+
 #### 0.0.6 / 2022-05-11
 * Fixed WPML string translation on Learn More Link text
 
