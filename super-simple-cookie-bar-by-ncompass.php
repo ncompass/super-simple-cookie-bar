@@ -6,9 +6,9 @@
  * Author:            NCompass Ltd
  * Author URI:        https://www.ncompass.co.uk
  * License:           GPLv2 or later
- * Text Domain:       ncompass-cookie-bar
- * GitHub Plugin URI: ncompass/ncompass-cookie-bar
- * GitHub Plugin URI: https://github.com/ncompass/ncompass-cookie-bar
+ * Text Domain:       super-simple-cookie-bar-by-ncompass
+ * GitHub Plugin URI: ncompass/super-simple-cookie-bar-by-ncompass
+ * GitHub Plugin URI: https://github.com/ncompass/super-simple-cookie-bar-by-ncompass
  */
 
  /**
@@ -29,7 +29,7 @@ require_once __DIR__ . '/includes/ncb-settings.php';
  */
 function ncb_action_links ( $actions ) {
 	$mylinks = array(
-		'<a href="' . admin_url( 'options-general.php?page=ncompass-cookie-bar' ) . '">Settings</a>',
+		'<a href="' . admin_url( 'options-general.php?page=super-simple-cookie-bar-by-ncompass' ) . '">Settings</a>',
 	);
 	$actions = array_merge( $actions, $mylinks );
 
@@ -111,9 +111,9 @@ function ncb_init_options(){
 	 * Apply WPML Filters
 	 *
 	 */
-	$ncb_options['message'] = apply_filters( 'wpml_translate_single_string', $ncb_options['message'], 'ncompass-cookie-bar', 'Message' );
-	$ncb_options['dismiss'] = apply_filters( 'wpml_translate_single_string', $ncb_options['dismiss'], 'ncompass-cookie-bar', 'Dismiss/Accept Text' );
-	$ncb_options['link'] = apply_filters( 'wpml_translate_single_string', $ncb_options['link'], 'ncompass-cookie-bar', 'Learn More Link Text' );
+	$ncb_options['message'] = apply_filters( 'wpml_translate_single_string', $ncb_options['message'], 'super-simple-cookie-bar-by-ncompass', 'Message' );
+	$ncb_options['dismiss'] = apply_filters( 'wpml_translate_single_string', $ncb_options['dismiss'], 'super-simple-cookie-bar-by-ncompass', 'Dismiss/Accept Text' );
+	$ncb_options['link'] = apply_filters( 'wpml_translate_single_string', $ncb_options['link'], 'super-simple-cookie-bar-by-ncompass', 'Learn More Link Text' );
 	$ncb_options['href'] = apply_filters( 'wpml_permalink', $ncb_options['href'], apply_filters( 'wpml_current_language', NULL ), true );
 
 	/**

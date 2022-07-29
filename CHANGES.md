@@ -1,3 +1,6 @@
+#### 0.0.8 / 2022-07-29 =
+* text-domain changed to "super-simple-cookie-bar-by-ncompass"
+
 #### 0.0.7 / 2022-07-28
 * Added function headers etc for wordpress.org compliance
 * Added wordpress.org readme.txt
