@@ -41,7 +41,7 @@ add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'ncb_action_li
 if( get_option( 'ncb_plugin_options' ) ){
 	$ncb_options = get_option( 'ncb_plugin_options' );
 
-	if ( true == $ncb_options['enabled'] ){
+	if ( ( isset( $ncb_options['enabled'] ) ) && ( true == $ncb_options['enabled'] ) ){
 		add_action( 'wp_enqueue_scripts', 'ncb_enqueue' );
 	}
 }

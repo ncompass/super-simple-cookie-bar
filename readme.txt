@@ -44,6 +44,7 @@ Features:
 * Plugin rename to "Super Simple Cookie Bar"
 * text-domain changed to "super-simple-cookie-bar"
 * Hosted CSS and JS locally
+* Fixed some php notices found on first install
 
 = 0.0.8 / 2022-07-29 =
 * text-domain changed to "super-simple-cookie-bar-by-ncompass"
