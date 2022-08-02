@@ -61,7 +61,6 @@ function ncb_register_settings() {
 	add_settings_field( 'ncb_plugin_setting_enabled', 'Enable Cookie Bar', 'ncb_plugin_setting_enabled', 'ncb_plugin', 'ncb_general' );
 	add_settings_field( 'ncb_plugin_setting_theme', 'Theme', 'ncb_plugin_setting_theme', 'ncb_plugin', 'ncb_general' );
 	add_settings_field( 'ncb_plugin_setting_position', 'Position', 'ncb_plugin_setting_position', 'ncb_plugin', 'ncb_general' );
-	add_settings_field( 'ncb_plugin_setting_local_assets', 'Load Local Assets', 'ncb_plugin_setting_local_assets', 'ncb_plugin', 'ncb_general' );
 
 	add_settings_section(
 		'ncb_bar_styles',
@@ -268,20 +267,6 @@ function ncb_plugin_setting_position() {
 		echo "<option value='bottom-left' ".selected( $options['position'], "bottom-left" )." >".__( 'Floating Left', 'super-simple-cookie-bar-by-ncompass' )."</option>";
 		echo "<option value='bottom-right' ".selected( $options['position'], "bottom-right" )." >".__( 'Floating Right', 'super-simple-cookie-bar-by-ncompass' )."</option>";
 	echo "</select>";
-}
-
-/**
- * Render Settings - Local Assets Enable
- *
- * Adds a tickbox to allow user to use locally hosted CSS/JS files
- *
- * @since 1.0.0
- *
- *
- */
-function ncb_plugin_setting_local_assets() {
-	$options = get_option( 'ncb_plugin_options' );
-	echo "<input id='ncb_plugin_setting_local_assets' name='ncb_plugin_options[local_assets]' type='checkbox' value='1'" . checked( 1, $options['local_assets'], false ) .  "' />";
 }
 
 /**

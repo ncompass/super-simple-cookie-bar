@@ -1,4 +1,4 @@
-=== Super Simple Cookie Bar by NCompass ===
+=== Super Simple Cookie Bar ===
 Contributors: ncompass
 Donate link: https://www.ncompass.co.uk/donate
 Tags: cookie consent, ncompass, cookie notice, cookie bar, simple cookie bar, super simple cookie bar
@@ -13,7 +13,7 @@ A super simple plugin that provides a super simple cookie bar notice.
 
 == Description ==
 
-A super simple plugin implementing a super simple cookie notice powered by Osana.
+A super simple wordpress plugin implementing a super simple cookie notice powered by Osana.
 
 Features:
 
@@ -40,6 +40,11 @@ Features:
 5. Simple barebones settings page.
 
 == Changelog ==
+= 0.0.9 / 2022-07-29 =
+* Plugin rename to "Super Simple Cookie Bar"
+* text-domain changed to "super-simple-cookie-bar"
+* Hosted CSS and JS locally
+
 = 0.0.8 / 2022-07-29 =
 * text-domain changed to "super-simple-cookie-bar-by-ncompass"
 

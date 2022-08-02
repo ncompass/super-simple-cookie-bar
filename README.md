@@ -1,12 +1,17 @@
-# Super Simple Cookie Bar by NCompass
-A super simple plugin that provides a super simple cookie bar notice.
+# Super Simple Cookie Bar
+A super simple Wordpress plugin that provides a super simple cookie bar notice.
 
 
 # CHANGELOG #
-#### 0.0.8 / 2022-07-29 =
+#### 0.0.9 / 2022-07-29
+* Plugin rename to "Super Simple Cookie Bar"
+* text-domain changed to "super-simple-cookie-bar"
+* Hosted CSS and JS locally
+
+#### 0.0.8 / 2022-07-29
 * text-domain changed to "super-simple-cookie-bar-by-ncompass"
 
-#### 0.0.7 / 2022-05-11
+#### 0.0.7 / 2022-07-28
 * Added function headers etc for wordpress.org compliance
 * Added wordpress.org readme.txt
 * Added uninstall script

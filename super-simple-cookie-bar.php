@@ -1,14 +1,14 @@
 <?php
 /**
- * Plugin Name:       Super Simple Cookie Bar by NCompass
+ * Plugin Name:       Super Simple Cookie Bar
  * Description:       A super simple plugin that provides a super simple cookie bar notice.
- * Version:           0.0.8
+ * Version:           0.0.9
  * Author:            NCompass Ltd
  * Author URI:        https://www.ncompass.co.uk
  * License:           GPLv2 or later
- * Text Domain:       super-simple-cookie-bar-by-ncompass
- * GitHub Plugin URI: ncompass/super-simple-cookie-bar-by-ncompass
- * GitHub Plugin URI: https://github.com/ncompass/super-simple-cookie-bar-by-ncompass
+ * Text Domain:       super-simple-cookie-bar
+ * GitHub Plugin URI: ncompass/super-simple-cookie-bar
+ * GitHub Plugin URI: https://github.com/ncompass/super-simple-cookie-bar
  */
 
  /**
@@ -59,13 +59,8 @@ if( get_option( 'ncb_plugin_options' ) ){
 function ncb_enqueue() {
 	$ncb_options = get_option( 'ncb_plugin_options' );
 
-	if( ( isset($ncb_options['local_assets']) ) && ( true == $ncb_options['local_assets'] ) ){
-		wp_enqueue_style( 'ncb-styles',  plugin_dir_url( __FILE__ ) . 'public/css/cookieconsent.min.css' );
-		wp_enqueue_script( 'ncb-scripts', plugin_dir_url( __FILE__ ) . 'public/js/cookieconsent.min.js', null, null, true );
-	} else{
-		wp_enqueue_style( 'ncb-styles',  'https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css' );
-		wp_enqueue_script( 'ncb-scripts', 'https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js', null, null, true );
-	}
+	wp_enqueue_style( 'ncb-styles',  plugin_dir_url( __FILE__ ) . 'public/css/cookieconsent.min.css' );
+	wp_enqueue_script( 'ncb-scripts', plugin_dir_url( __FILE__ ) . 'public/js/cookieconsent.min.js', null, null, true );
 
 	$script = ncb_init_options();
 	wp_add_inline_script( 'ncb-scripts', $script, 'after' );
