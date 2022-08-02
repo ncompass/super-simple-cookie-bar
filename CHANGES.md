@@ -1,4 +1,4 @@
-#### 0.0.9 / 2022-07-29
+#### 0.0.9 / 2022-08-02
 * Plugin rename to "Super Simple Cookie Bar"
 * text-domain changed to "super-simple-cookie-bar"
 * Hosted CSS and JS locally
