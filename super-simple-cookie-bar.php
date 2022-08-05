@@ -1,8 +1,8 @@
-<?php
+sscb_<?php
 /**
  * Plugin Name:       Super Simple Cookie Bar
  * Description:       A super simple plugin that provides a super simple cookie bar notice.
- * Version:           0.0.9
+ * Version:           1.0.0
  * Author:            NCompass Ltd
  * Author URI:        https://www.ncompass.co.uk
  * License:           GPLv2 or later
@@ -14,7 +14,7 @@
  /**
   * Registers settings in admin
   */
-require_once __DIR__ . '/includes/ncb-settings.php';
+require_once __DIR__ . '/includes/sscb-settings.php';
 
 /**
  * Register settings link
@@ -27,7 +27,7 @@ require_once __DIR__ . '/includes/ncb-settings.php';
  * @param type $actions Existing settings links array collected from "plugin_action_links"
  * @return type Merged array with our settings link
  */
-function ncb_action_links ( $actions ) {
+function sscb_action_links ( $actions ) {
 	$mylinks = array(
 		'<a href="' . admin_url( 'options-general.php?page=super-simple-cookie-bar-by-ncompass' ) . '">Settings</a>',
 	);
@@ -35,14 +35,14 @@ function ncb_action_links ( $actions ) {
 
 	return $actions;
 }
-add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'ncb_action_links' );
+add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'sscb_action_links' );
 
 /** If enabled add script, css and json **/
-if( get_option( 'ncb_plugin_options' ) ){
-	$ncb_options = get_option( 'ncb_plugin_options' );
+if( get_option( 'sscb_plugin_options' ) ){
+	$sscb_options = get_option( 'sscb_plugin_options' );
 
-	if ( ( isset( $ncb_options['enabled'] ) ) && ( true == $ncb_options['enabled'] ) ){
-		add_action( 'wp_enqueue_scripts', 'ncb_enqueue' );
+	if ( ( isset( $sscb_options['enabled'] ) ) && ( true == $sscb_options['enabled'] ) ){
+		add_action( 'wp_enqueue_scripts', 'sscb_enqueue' );
 	}
 }
 
@@ -56,14 +56,14 @@ if( get_option( 'ncb_plugin_options' ) ){
  *
  *
  */
-function ncb_enqueue() {
-	$ncb_options = get_option( 'ncb_plugin_options' );
+function sscb_enqueue() {
+	$sscb_options = get_option( 'sscb_plugin_options' );
 
-	wp_enqueue_style( 'ncb-styles',  plugin_dir_url( __FILE__ ) . 'public/css/cookieconsent.min.css' );
-	wp_enqueue_script( 'ncb-scripts', plugin_dir_url( __FILE__ ) . 'public/js/cookieconsent.min.js', null, null, true );
+	wp_enqueue_style( 'sscb-styles',  plugin_dir_url( __FILE__ ) . 'public/css/cookieconsent.min.css' );
+	wp_enqueue_script( 'sscb-scripts', plugin_dir_url( __FILE__ ) . 'public/js/cookieconsent.min.js', null, null, true );
 
-	$script = ncb_init_options();
-	wp_add_inline_script( 'ncb-scripts', $script, 'after' );
+	$script = sscb_init_options();
+	wp_add_inline_script( 'sscb-scripts', $script, 'after' );
 }
 
 /**
@@ -75,41 +75,41 @@ function ncb_enqueue() {
  *
  *
  */
-function ncb_init_options(){
+function sscb_init_options(){
 	/**
 	 *
 	 * Collect data or use defaults
 	 *
 	 */
-	$ncb_options = get_option( 'ncb_plugin_options' );
+	$sscb_options = get_option( 'sscb_plugin_options' );
 
 
 
-	$ncb_options['theme'] = $ncb_options['theme'] ?? $ncb_options['theme'] ?: 'block';
-	$ncb_options['position'] = $ncb_options['position'] ?? $ncb_options['position'] ?: 'bottom';
+	$sscb_options['theme'] = $sscb_options['theme'] ?? $sscb_options['theme'] ?: 'block';
+	$sscb_options['position'] = $sscb_options['position'] ?? $sscb_options['position'] ?: 'bottom';
 
-	$ncb_options['bar_bg'] = $ncb_options['bar_bg'] ?? $ncb_options['bar_bg'] ?: '#000000';
-	$ncb_options['bar_txt'] = $ncb_options['bar_txt'] ?? $ncb_options['bar_txt'] ?: '#ffffff';
+	$sscb_options['bar_bg'] = $sscb_options['bar_bg'] ?? $sscb_options['bar_bg'] ?: '#000000';
+	$sscb_options['bar_txt'] = $sscb_options['bar_txt'] ?? $sscb_options['bar_txt'] ?: '#ffffff';
 
-	$ncb_options['btn_bg'] = $ncb_options['theme'] == 'wire' ? 'transparent' : ( $ncb_options['btn_bg'] ?? $ncb_options['btn_bg'] ?: '#ffffff' );
+	$sscb_options['btn_bg'] = $sscb_options['theme'] == 'wire' ? 'transparent' : ( $sscb_options['btn_bg'] ?? $sscb_options['btn_bg'] ?: '#ffffff' );
 	//no btn_bg if using wire theme.
-	$ncb_options['btn_txt'] = $ncb_options['theme'] == 'wire' ? ( $ncb_options['btn_txt'] ?? $ncb_options['btn_txt'] ?: ( $ncb_options['btn_border'] ?? $ncb_options['btn_border'] ?: '#ffffff' ) ) : ( $ncb_options['btn_txt'] ?? $ncb_options['btn_txt'] ?: '#000000' );
-	$ncb_options['btn_border'] = $ncb_options['theme'] == 'wire' ? ( $ncb_options['btn_border'] ?? $ncb_options['btn_border'] ?: ( $ncb_options['btn_txt'] ?? $ncb_options['btn_txt'] ?: '#ffffff' ) ) : ( $ncb_options['btn_border'] ?? $ncb_options['btn_border'] ?: '#ffffff' );
+	$sscb_options['btn_txt'] = $sscb_options['theme'] == 'wire' ? ( $sscb_options['btn_txt'] ?? $sscb_options['btn_txt'] ?: ( $sscb_options['btn_border'] ?? $sscb_options['btn_border'] ?: '#ffffff' ) ) : ( $sscb_options['btn_txt'] ?? $sscb_options['btn_txt'] ?: '#000000' );
+	$sscb_options['btn_border'] = $sscb_options['theme'] == 'wire' ? ( $sscb_options['btn_border'] ?? $sscb_options['btn_border'] ?: ( $sscb_options['btn_txt'] ?? $sscb_options['btn_txt'] ?: '#ffffff' ) ) : ( $sscb_options['btn_border'] ?? $sscb_options['btn_border'] ?: '#ffffff' );
 	//this ties btn_border and btn_txt cols together if using wire theme - unless the user is explicitly setting a value for both - otherwise grab indv values or defaults.
 
-	$ncb_options['message'] = $ncb_options['message'] ?? $ncb_options['message'] ?: 'This website uses cookies to ensure you get the best experience on our website.';
-	$ncb_options['dismiss'] = $ncb_options['dismiss'] ?? $ncb_options['dismiss'] ?: 'Got it!';
-	$ncb_options['link'] = $ncb_options['link'] ?? $ncb_options['link'] ?: 'Learn More';
+	$sscb_options['message'] = $sscb_options['message'] ?? $sscb_options['message'] ?: 'This website uses cookies to ensure you get the best experience on our website.';
+	$sscb_options['dismiss'] = $sscb_options['dismiss'] ?? $sscb_options['dismiss'] ?: 'Got it!';
+	$sscb_options['link'] = $sscb_options['link'] ?? $sscb_options['link'] ?: 'Learn More';
 
 	/**
 	 *
 	 * Apply WPML Filters
 	 *
 	 */
-	$ncb_options['message'] = apply_filters( 'wpml_translate_single_string', $ncb_options['message'], 'super-simple-cookie-bar-by-ncompass', 'Message' );
-	$ncb_options['dismiss'] = apply_filters( 'wpml_translate_single_string', $ncb_options['dismiss'], 'super-simple-cookie-bar-by-ncompass', 'Dismiss/Accept Text' );
-	$ncb_options['link'] = apply_filters( 'wpml_translate_single_string', $ncb_options['link'], 'super-simple-cookie-bar-by-ncompass', 'Learn More Link Text' );
-	$ncb_options['href'] = apply_filters( 'wpml_permalink', $ncb_options['href'], apply_filters( 'wpml_current_language', NULL ), true );
+	$sscb_options['message'] = apply_filters( 'wpml_translate_single_string', $sscb_options['message'], 'super-simple-cookie-bar-by-ncompass', 'Message' );
+	$sscb_options['dismiss'] = apply_filters( 'wpml_translate_single_string', $sscb_options['dismiss'], 'super-simple-cookie-bar-by-ncompass', 'Dismiss/Accept Text' );
+	$sscb_options['link'] = apply_filters( 'wpml_translate_single_string', $sscb_options['link'], 'super-simple-cookie-bar-by-ncompass', 'Learn More Link Text' );
+	$sscb_options['href'] = apply_filters( 'wpml_permalink', $sscb_options['href'], apply_filters( 'wpml_current_language', NULL ), true );
 
 	/**
 	 *
@@ -118,20 +118,20 @@ function ncb_init_options(){
 	 */
 	$theme_allow = array( 'block','edgeless','classic','wire' );
  	$pos_allow = array( 'bottom','top','top-static','bottom-left','bottom-right' );
-	$ncb_options['theme'] = in_array( $ncb_options['theme'], $theme_allow ) ? $ncb_options['theme'] : 'block';
-	$ncb_options['position'] = in_array( $ncb_options['position'], $pos_allow ) ? $ncb_options['position'] : 'bottom';
+	$sscb_options['theme'] = in_array( $sscb_options['theme'], $theme_allow ) ? $sscb_options['theme'] : 'block';
+	$sscb_options['position'] = in_array( $sscb_options['position'], $pos_allow ) ? $sscb_options['position'] : 'bottom';
 
-	$ncb_options['bar_bg'] = sanitize_hex_color( $ncb_options['bar_bg'] );
-	$ncb_options['bar_txt'] = sanitize_hex_color( $ncb_options['bar_txt'] );
+	$sscb_options['bar_bg'] = sanitize_hex_color( $sscb_options['bar_bg'] );
+	$sscb_options['bar_txt'] = sanitize_hex_color( $sscb_options['bar_txt'] );
 
-	$ncb_options['btn_bg'] = sanitize_hex_color( $ncb_options['btn_bg'] );
-	$ncb_options['btn_txt'] = sanitize_hex_color( $ncb_options['btn_txt'] );
-	$ncb_options['btn_border'] = sanitize_hex_color( $ncb_options['btn_border'] );
+	$sscb_options['btn_bg'] = sanitize_hex_color( $sscb_options['btn_bg'] );
+	$sscb_options['btn_txt'] = sanitize_hex_color( $sscb_options['btn_txt'] );
+	$sscb_options['btn_border'] = sanitize_hex_color( $sscb_options['btn_border'] );
 
-	$ncb_options['message'] = sanitize_text_field( $ncb_options['message'] );
-	$ncb_options['dismiss'] = sanitize_text_field( $ncb_options['dismiss'] );
-	$ncb_options['link'] = sanitize_text_field( $ncb_options['link'] );
-	$ncb_options['href'] = sanitize_url( $ncb_options['href'], array( 'http','https' ) );
+	$sscb_options['message'] = sanitize_text_field( $sscb_options['message'] );
+	$sscb_options['dismiss'] = sanitize_text_field( $sscb_options['dismiss'] );
+	$sscb_options['link'] = sanitize_text_field( $sscb_options['link'] );
+	$sscb_options['href'] = sanitize_url( $sscb_options['href'], array( 'http','https' ) );
 
 	/**
 	 *
@@ -141,36 +141,36 @@ function ncb_init_options(){
 	$script = 'window.cookieconsent.initialise({
 		"palette": {
 			"popup": {
-				"background": "'.$ncb_options['bar_bg'].'",
-				"text": "'.$ncb_options['bar_txt'].'"
+				"background": "'.$sscb_options['bar_bg'].'",
+				"text": "'.$sscb_options['bar_txt'].'"
 			},
 			"button": {
-				"background": "'.$ncb_options['btn_bg'].'",
-				"text": "'.$ncb_options['btn_txt'].'",
-				"border": "'.$ncb_options['btn_border'].'"
+				"background": "'.$sscb_options['btn_bg'].'",
+				"text": "'.$sscb_options['btn_txt'].'",
+				"border": "'.$sscb_options['btn_border'].'"
 			},
 		},
-		"theme": "'.$ncb_options['theme'].'",
+		"theme": "'.$sscb_options['theme'].'",
 		';
 
 		//position
-		if ( 'top-static' == $ncb_options['position'] ){
+		if ( 'top-static' == $sscb_options['position'] ){
 			$script .= '"position": "top",
 			"static": true,
 			';
 		} else{
-			$script .= '"position": "'.$ncb_options['position'].'",
+			$script .= '"position": "'.$sscb_options['position'].'",
 			';
 		}
 
 		//content
 		$script .= '"content": {
-			"message": "' . $ncb_options['message'] . '",
-			"dismiss": "' . $ncb_options['dismiss'] . '",
+			"message": "' . $sscb_options['message'] . '",
+			"dismiss": "' . $sscb_options['dismiss'] . '",
 			';
-			if ( NULL != $ncb_options['href'] ){
-				$script .= '"link": "' . $ncb_options['link'] . '",
-				"href": "' . $ncb_options['href'] . '"
+			if ( NULL != $sscb_options['href'] ){
+				$script .= '"link": "' . $sscb_options['link'] . '",
+				"href": "' . $sscb_options['href'] . '"
 				';
 			} else{
 				$script .= '"link": false

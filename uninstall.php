@@ -6,4 +6,4 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 }
 
 //delete plugin options from DB on uninstall
-delete_option( 'ncb_plugin_options' );
+delete_option( 'sscb_plugin_options' );
