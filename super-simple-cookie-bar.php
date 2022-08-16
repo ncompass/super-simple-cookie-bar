@@ -29,7 +29,7 @@ require_once __DIR__ . '/includes/sscb-settings.php';
  */
 function sscb_action_links ( $actions ) {
 	$mylinks = array(
-		'<a href="' . admin_url( 'options-general.php?page=super-simple-cookie-bar-by-ncompass' ) . '">Settings</a>',
+		'<a href="' . admin_url( 'options-general.php?page=super-simple-cookie-bar' ) . '">Settings</a>',
 	);
 	$actions = array_merge( $actions, $mylinks );
 
@@ -106,9 +106,9 @@ function sscb_init_options(){
 	 * Apply WPML Filters
 	 *
 	 */
-	$sscb_options['message'] = apply_filters( 'wpml_translate_single_string', $sscb_options['message'], 'super-simple-cookie-bar-by-ncompass', 'Message' );
-	$sscb_options['dismiss'] = apply_filters( 'wpml_translate_single_string', $sscb_options['dismiss'], 'super-simple-cookie-bar-by-ncompass', 'Dismiss/Accept Text' );
-	$sscb_options['link'] = apply_filters( 'wpml_translate_single_string', $sscb_options['link'], 'super-simple-cookie-bar-by-ncompass', 'Learn More Link Text' );
+	$sscb_options['message'] = apply_filters( 'wpml_translate_single_string', $sscb_options['message'], 'super-simple-cookie-bar', 'Message' );
+	$sscb_options['dismiss'] = apply_filters( 'wpml_translate_single_string', $sscb_options['dismiss'], 'super-simple-cookie-bar', 'Dismiss/Accept Text' );
+	$sscb_options['link'] = apply_filters( 'wpml_translate_single_string', $sscb_options['link'], 'super-simple-cookie-bar', 'Learn More Link Text' );
 	$sscb_options['href'] = apply_filters( 'wpml_permalink', $sscb_options['href'], apply_filters( 'wpml_current_language', NULL ), true );
 
 	/**
