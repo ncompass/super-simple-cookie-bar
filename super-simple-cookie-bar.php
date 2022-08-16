@@ -1,4 +1,4 @@
-sscb_<?php
+<?php
 /**
  * Plugin Name:       Super Simple Cookie Bar
  * Description:       A super simple plugin that provides a super simple cookie bar notice.
