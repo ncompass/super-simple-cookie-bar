@@ -134,13 +134,13 @@ function sscb_plugin_options_validate( $input ) {
 	 * Bar Styles Validation
 	 *
 	 */
-	if( ( $input['bar_bg'] ) &&  ( ! sanitize_hex_color( $input['bar_bg'] ) ) ){
+	if( ( $input['bar_bg'] ) && ( ! sanitize_hex_color( $input['bar_bg'] ) ) ){
 		//check bar_bg is valid hex if entered.
 		add_settings_error( 'sscb_plugin_options', 'sscb_bar_bg_error', __( 'Cookie Bar - Background Colour: You must enter a valid HTML hex colour code e.g. #000000 or #000', 'super-simple-cookie-bar' ), 'error' );
 
     $has_errors = true;
 	}
-	if( ( $input['bar_txt'] ) &&  ( ! sanitize_hex_color( $input['bar_txt'] ) ) ){
+	if( ( $input['bar_txt'] ) && ( ! sanitize_hex_color( $input['bar_txt'] ) ) ){
 		//check bar_txt is valid hex if entered.
 		add_settings_error( 'sscb_plugin_options', 'sscb_bar_txt_error', __( 'Cookie Bar - Text Colour: You must enter a valid HTML hex colour code e.g. #ffffff or #fff', 'super-simple-cookie-bar' ), 'error' );
 
@@ -152,19 +152,19 @@ function sscb_plugin_options_validate( $input ) {
 	 * Button Styles Validation
 	 *
 	 */
-	if( ( $input['btn_bg'] ) &&  ( ! sanitize_hex_color( $input['btn_bg'] ) ) ){
+	if( ( $input['btn_bg'] ) && ( ! sanitize_hex_color( $input['btn_bg'] ) ) ){
 		//check btn_bg is valid hex if entered.
 		add_settings_error( 'sscb_plugin_options', 'sscb_btn_bg_error', __( 'Cookie Button - Background Colour: You must enter a valid HTML hex colour code e.g. #ffffff or #fff', 'super-simple-cookie-bar' ), 'error' );
 
     $has_errors = true;
 	}
-	if( ( $input['btn_txt'] ) &&  ( ! sanitize_hex_color( $input['btn_txt'] ) ) ){
+	if( ( $input['btn_txt'] ) && ( ! sanitize_hex_color( $input['btn_txt'] ) ) ){
 		//check btn_txt is valid hex if entered.
 		add_settings_error( 'sscb_plugin_options', 'sscb_btn_txt_error', __( 'Cookie Button - Text Colour: You must enter a valid HTML hex colour code e.g. #00000 or #000', 'super-simple-cookie-bar' ), 'error' );
 
     $has_errors = true;
 	}
-	if( ( $input['btn_border'] ) &&  ( ! sanitize_hex_color( $input['btn_border'] ) ) ){
+	if( ( $input['btn_border'] ) && ( ! sanitize_hex_color( $input['btn_border'] ) ) ){
 		//check btn_border is valid hex if entered.
 		add_settings_error( 'sscb_plugin_options', 'sscb_btn_border_error', __( 'Cookie Button - Border Colour: You must enter a valid HTML hex colour code e.g. #00000 or #000', 'super-simple-cookie-bar' ), 'error' );
 

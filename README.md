@@ -3,9 +3,10 @@ A super simple Wordpress plugin that provides a super simple cookie bar notice.
 
 
 # CHANGELOG #
-### 1.0.0 / 2022-08-05 ###
+#### 1.0.0 / 2022-08-17 ####
 * First wordpress.org release
 * Changed prefixes from "ncb_" to "sscb_"
+* Fixed sanitisation issue when using wire theme
 
 #### 0.0.9 / 2022-08-02
 * Plugin rename to "Super Simple Cookie Bar"

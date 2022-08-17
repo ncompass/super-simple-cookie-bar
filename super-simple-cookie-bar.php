@@ -124,7 +124,9 @@ function sscb_init_options(){
 	$sscb_options['bar_bg'] = sanitize_hex_color( $sscb_options['bar_bg'] );
 	$sscb_options['bar_txt'] = sanitize_hex_color( $sscb_options['bar_txt'] );
 
-	$sscb_options['btn_bg'] = sanitize_hex_color( $sscb_options['btn_bg'] );
+	if( $sscb_options['btn_bg'] != 'transparent' ){
+		$sscb_options['btn_bg'] = sanitize_hex_color( $sscb_options['btn_bg'] );
+	}
 	$sscb_options['btn_txt'] = sanitize_hex_color( $sscb_options['btn_txt'] );
 	$sscb_options['btn_border'] = sanitize_hex_color( $sscb_options['btn_border'] );
 

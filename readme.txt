@@ -37,11 +37,11 @@ Features:
 2. Several positions.
 3. Customisable colours.
 4. Customisable message, learn more link, and button.
-5. Simple barebones settings page.
 
 == Changelog ==
-= 1.0.0 / 2022-08-05 =
+= 1.0.0 / 2022-08-17 =
 * First wordpress.org release
 * Changed prefixes from "ncb_" to "sscb_"
+* Fixed sanitisation issue when using wire theme
 
 == Upgrade Notice ==
