@@ -1,3 +1,6 @@
+= 1.0.1 / 2022-08-17 =
+* Updated Wordpress (5.3) and PHP (7.4) support tags in readme.txt.
+
 = 1.0.0 / 2022-08-17 =
 * First wordpress.org release
 * Changed prefixes from "ncb_" to "sscb_"
