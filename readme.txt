@@ -1,6 +1,6 @@
 === Super Simple Cookie Bar ===
 Contributors: ncompass
-Donate link: https://www.ncompass.co.uk/donate
+Donate link: https://www.paypal.com/donate/?hosted_button_id=8SLNLSBCANKKE
 Tags: cookie consent, ncompass, cookie notice, cookie bar, simple cookie bar, super simple cookie bar
 Requires at least: 4.7
 Tested up to: 6.0.1
@@ -18,7 +18,6 @@ A super simple wordpress plugin implementing a super simple cookie notice powere
 Features:
 
 * Lightweight and simple cookie notice powered by Osana
-* Load assets locally or via JSDeliver
 * Several configurable themes and positions
 * Configurable message, learn more link and button text
 * WPML Support
@@ -37,6 +36,7 @@ Features:
 2. Several positions.
 3. Customisable colours.
 4. Customisable message, learn more link, and button.
+5. Lightweight Simple Settings Page.
 
 == Changelog ==
 = 1.0.0 / 2022-08-17 =
