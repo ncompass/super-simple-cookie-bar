@@ -3,7 +3,7 @@ Contributors: ncompass
 Donate link: https://www.paypal.com/donate/?hosted_button_id=8SLNLSBCANKKE
 Tags: cookie consent, ncompass, cookie notice, cookie bar, simple cookie bar, super simple cookie bar
 Requires at least: 5.3
-Tested up to: 6.0.1
+Tested up to: 6.8.1
 Stable tag: 1.0.1
 Requires PHP: 7.4
 License: GPLv2 or later
