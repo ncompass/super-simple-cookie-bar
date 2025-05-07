@@ -176,7 +176,7 @@ function sscb_plugin_options_validate( $input ) {
 	 * Sanitize Content fields
 	 *
 	 */
-	$input['message'] = sanitize_text_field( $input['message'] );
+	$input['message'] = wp_kses_post( $input['message'] );
 	$input['dismiss'] = sanitize_text_field( $input['dismiss'] );
 	$input['link'] = sanitize_text_field( $input['link'] );
 	$input['href'] = sanitize_url( $input['href'], array( 'http','https' ) );
@@ -391,8 +391,8 @@ function sscb_content_text() {
  *
  */
 function sscb_plugin_setting_message() {
-	$sscb_options = get_option( 'sscb_plugin_options' );
-	echo "<input id='sscb_plugin_setting_message' name='sscb_plugin_options[message]' type='text' placeholder='".__( 'This website uses cookies to ensure you get the best experience on our website.', 'super-simple-cookie-bar' )."' value='" . esc_attr( $sscb_options['message'] ??= '' ) . "' style='width:100%;' />";
+  $sscb_options = get_option( 'sscb_plugin_options' );
+  echo "<textarea id='sscb_plugin_setting_message' name='sscb_plugin_options[message]' rows='4' style='width:100%;' placeholder='This website uses cookies to ensure you get the best experience on our website.'>" . esc_textarea( $sscb_options['message'] ?? '' ) . "</textarea>";
 }
 
 /**

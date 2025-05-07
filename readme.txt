@@ -2,9 +2,9 @@
 Contributors: ncompass
 Donate link: https://www.paypal.com/donate/?hosted_button_id=8SLNLSBCANKKE
 Tags: cookie consent, cookie notice, cookie bar, simple cookie bar, super simple cookie bar
-Requires at least: 5.3
+Requires at least: 5.7
 Tested up to: 6.8.1
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -39,6 +39,11 @@ Features:
 5. Lightweight Simple Settings Page.
 
 == Changelog ==
+= 1.0.2 / 2025-05-02 =
+* Allow html in the message field
+* Deferred JS loading
+* Tested on Wordpress 6.8.1
+
 = 1.0.1 / 2022-08-17 =
 * Updated Wordpress (5.3) and PHP (7.4) support tags in readme.txt.
 

@@ -3,6 +3,11 @@ A super simple Wordpress plugin that provides a super simple cookie bar notice.
 
 
 # CHANGELOG #
+#### 1.0.2 / 2025-05-02 ####
+* Allow html in the message field
+* Deferred JS loading
+* Tested on Wordpress 6.8.1
+
 #### 1.0.1 / 2022-08-17 ####
 * Updated Wordpress (5.3) and PHP (7.4) support tags in readme.txt.
 
