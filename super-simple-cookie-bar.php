@@ -107,24 +107,40 @@ function sscb_init_options() {
 function sscb_get_options_with_defaults() {
   $sscb_options = get_option( 'sscb_plugin_options', array() );
 
+  // Apply defaults for basic options
   $sscb_options['theme'] = isset( $sscb_options['theme'] ) ? $sscb_options['theme'] : SSCB_DEFAULT_THEME;
   $sscb_options['position'] = isset( $sscb_options['position'] ) ? $sscb_options['position'] : SSCB_DEFAULT_POSITION;
-
   $sscb_options['bar_bg'] = isset( $sscb_options['bar_bg'] ) ? $sscb_options['bar_bg'] : SSCB_DEFAULT_BAR_BG;
   $sscb_options['bar_txt'] = isset( $sscb_options['bar_txt'] ) ? $sscb_options['bar_txt'] : SSCB_DEFAULT_BAR_TXT;
 
-  $sscb_options['btn_bg'] = isset( $sscb_options['theme'] ) && $sscb_options['theme'] === 'wire'
-    ? 'transparent'
-    : ( isset( $sscb_options['btn_bg'] ) ? $sscb_options['btn_bg'] : SSCB_DEFAULT_BTN_BG );
+  // Handle button background
+  if ( isset( $sscb_options['theme'] ) && $sscb_options['theme'] === 'wire' ) {
+    $sscb_options['btn_bg'] = 'transparent';
+  } else {
+    $sscb_options['btn_bg'] = isset( $sscb_options['btn_bg'] ) ? $sscb_options['btn_bg'] : SSCB_DEFAULT_BTN_BG;
+  }
 
-  $sscb_options['btn_txt'] = isset( $sscb_options['theme'] ) && $sscb_options['theme'] === 'wire'
-    ? ( isset( $sscb_options['btn_txt'] ) ? $sscb_options['btn_txt'] : ( isset( $sscb_options['btn_border'] ) ? $sscb_options['btn_border'] : SSCB_DEFAULT_BTN_TXT ) )
-    : ( isset( $sscb_options['btn_txt'] ) ? $sscb_options['btn_txt'] : SSCB_DEFAULT_BTN_TXT );
+  // Handle button text colour
+  // If the theme is 'wire', we set the button text to the border color
+  if ( isset( $sscb_options['theme'] ) && $sscb_options['theme'] === 'wire' ) {
+    $sscb_options['btn_txt'] = isset( $sscb_options['btn_txt'] )
+      ? $sscb_options['btn_txt']
+      : ( isset( $sscb_options['btn_border'] ) ? $sscb_options['btn_border'] : SSCB_DEFAULT_BTN_TXT );
+  } else {
+    $sscb_options['btn_txt'] = isset( $sscb_options['btn_txt'] ) ? $sscb_options['btn_txt'] : SSCB_DEFAULT_BTN_TXT;
+  }
 
-  $sscb_options['btn_border'] = isset( $sscb_options['theme'] ) && $sscb_options['theme'] === 'wire'
-    ? ( isset( $sscb_options['btn_border'] ) ? $sscb_options['btn_border'] : ( isset( $sscb_options['btn_txt'] ) ? $sscb_options['btn_txt'] : SSCB_DEFAULT_BTN_BORDER ) )
-    : ( isset( $sscb_options['btn_border'] ) ? $sscb_options['btn_border'] : SSCB_DEFAULT_BTN_BORDER );
+  // Handle button border color
+  // If the theme is 'wire', we set the button border to the button text color
+  if ( isset( $sscb_options['theme'] ) && $sscb_options['theme'] === 'wire' ) {
+    $sscb_options['btn_border'] = isset( $sscb_options['btn_border'] )
+      ? $sscb_options['btn_border']
+      : ( isset( $sscb_options['btn_txt'] ) ? $sscb_options['btn_txt'] : SSCB_DEFAULT_BTN_BORDER );
+  } else {
+    $sscb_options['btn_border'] = isset( $sscb_options['btn_border'] ) ? $sscb_options['btn_border'] : SSCB_DEFAULT_BTN_BORDER;
+  }
 
+  // Apply defaults for other options
   $sscb_options['message'] = isset( $sscb_options['message'] ) ? $sscb_options['message'] : SSCB_DEFAULT_MESSAGE;
   $sscb_options['dismiss'] = isset( $sscb_options['dismiss'] ) ? $sscb_options['dismiss'] : SSCB_DEFAULT_DISMISS;
   $sscb_options['link'] = isset( $sscb_options['link'] ) ? $sscb_options['link'] : SSCB_DEFAULT_LINK;
