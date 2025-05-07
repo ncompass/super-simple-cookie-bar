@@ -16,6 +16,19 @@
 define( 'SSCB_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'SSCB_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
+// Define constants for default values
+define( 'SSCB_DEFAULT_THEME', 'block' );
+define( 'SSCB_DEFAULT_POSITION', 'bottom' );
+define( 'SSCB_DEFAULT_BAR_BG', '#000000' );
+define( 'SSCB_DEFAULT_BAR_TXT', '#ffffff' );
+define( 'SSCB_DEFAULT_BTN_BG', '#ffffff' );
+define( 'SSCB_DEFAULT_BTN_TXT', '#000000' );
+define( 'SSCB_DEFAULT_BTN_BORDER', '#000000' );
+define( 'SSCB_DEFAULT_MESSAGE', 'This website uses cookies to ensure you get the best experience on our website.' );
+define( 'SSCB_DEFAULT_DISMISS', 'Got it!' );
+define( 'SSCB_DEFAULT_LINK', 'Learn More' );
+define( 'SSCB_DEFAULT_HREF', '' );
+
 if ( version_compare( PHP_VERSION, '7.4', '<' ) || version_compare( get_bloginfo( 'version' ), '5.7', '<' ) ) {
   wp_die( __( 'This plugin requires PHP 7.4+ and WordPress 5.7+.', 'super-simple-cookie-bar' ) );
 }
@@ -74,79 +87,139 @@ function sscb_enqueue() {
  * @since 1.0.0
  */
 function sscb_init_options() {
-  $sscb_options = get_option( 'sscb_plugin_options' ) ?: array(); // Ensure $sscb_options is always an array
+  $sscb_options = sscb_get_options_with_defaults();
+  $sscb_options = sscb_apply_wpml_filters( $sscb_options );
+  $sscb_options = sscb_sanitize_options( $sscb_options );
 
-  $sscb_options['theme'] = isset( $sscb_options['theme'] ) ? $sscb_options['theme'] : 'block';
-  $sscb_options['position'] = isset( $sscb_options['position'] ) ? $sscb_options['position'] : 'bottom';
+  return sscb_build_json_script( $sscb_options );
+}
 
-  $sscb_options['bar_bg'] = isset( $sscb_options['bar_bg'] ) ? $sscb_options['bar_bg'] : '#000000';
-  $sscb_options['bar_txt'] = isset( $sscb_options['bar_txt'] ) ? $sscb_options['bar_txt'] : '#ffffff';
+/**
+ * Get Options with Defaults
+ *
+ * Retrieves plugin options from the database and applies default values
+ * where options are not set.
+ *
+ * @since 1.0.2
+ *
+ * @return array Options with defaults applied.
+ */
+function sscb_get_options_with_defaults() {
+  $sscb_options = get_option( 'sscb_plugin_options', array() );
 
-  $sscb_options['btn_bg'] = isset( $sscb_options['theme'] ) && $sscb_options['theme'] === 'wire' ? 'transparent' : ( isset( $sscb_options['btn_bg'] ) ? $sscb_options['btn_bg'] : '#ffffff' );
-  $sscb_options['btn_txt'] = isset( $sscb_options['theme'] ) && $sscb_options['theme'] === 'wire' ? ( isset( $sscb_options['btn_txt'] ) ? $sscb_options['btn_txt'] : ( isset( $sscb_options['btn_border'] ) ? $sscb_options['btn_border'] : '#ffffff' ) ) : ( isset( $sscb_options['btn_txt'] ) ? $sscb_options['btn_txt'] : '#000000' );
-  $sscb_options['btn_border'] = isset( $sscb_options['theme'] ) && $sscb_options['theme'] === 'wire' ? ( isset( $sscb_options['btn_border'] ) ? $sscb_options['btn_border'] : ( isset( $sscb_options['btn_txt'] ) ? $sscb_options['btn_txt'] : '#ffffff' ) ) : ( isset( $sscb_options['btn_border'] ) ? $sscb_options['btn_border'] : '#ffffff' );
+  $sscb_options['theme'] = isset( $sscb_options['theme'] ) ? $sscb_options['theme'] : SSCB_DEFAULT_THEME;
+  $sscb_options['position'] = isset( $sscb_options['position'] ) ? $sscb_options['position'] : SSCB_DEFAULT_POSITION;
 
-  $sscb_options['message'] = isset( $sscb_options['message'] ) ? $sscb_options['message'] : 'This website uses cookies to ensure you get the best experience on our website.';
-  $sscb_options['dismiss'] = isset( $sscb_options['dismiss'] ) ? $sscb_options['dismiss'] : 'Got it!';
-  $sscb_options['link'] = isset( $sscb_options['link'] ) ? $sscb_options['link'] : 'Learn More';
+  $sscb_options['bar_bg'] = isset( $sscb_options['bar_bg'] ) ? $sscb_options['bar_bg'] : SSCB_DEFAULT_BAR_BG;
+  $sscb_options['bar_txt'] = isset( $sscb_options['bar_txt'] ) ? $sscb_options['bar_txt'] : SSCB_DEFAULT_BAR_TXT;
 
-  /**
-    * Apply WPML Filters
-    */
-  $sscb_options['message'] = apply_filters( 'wpml_translate_single_string', $sscb_options['message'], 'super-simple-cookie-bar', 'Message' );
-  $sscb_options['dismiss'] = apply_filters( 'wpml_translate_single_string', $sscb_options['dismiss'], 'super-simple-cookie-bar', 'Dismiss/Accept Text' );
-  $sscb_options['link'] = apply_filters( 'wpml_translate_single_string', $sscb_options['link'], 'super-simple-cookie-bar', 'Learn More Link Text' );
-  $sscb_options['href'] = apply_filters( 'wpml_permalink', isset( $sscb_options['href'] ) ? $sscb_options['href'] : '', apply_filters( 'wpml_current_language', null ), true );
+  $sscb_options['btn_bg'] = isset( $sscb_options['theme'] ) && $sscb_options['theme'] === 'wire'
+    ? 'transparent'
+    : ( isset( $sscb_options['btn_bg'] ) ? $sscb_options['btn_bg'] : SSCB_DEFAULT_BTN_BG );
 
-  /**
-    * Sanitize collected data
-    */
+  $sscb_options['btn_txt'] = isset( $sscb_options['theme'] ) && $sscb_options['theme'] === 'wire'
+    ? ( isset( $sscb_options['btn_txt'] ) ? $sscb_options['btn_txt'] : ( isset( $sscb_options['btn_border'] ) ? $sscb_options['btn_border'] : SSCB_DEFAULT_BTN_TXT ) )
+    : ( isset( $sscb_options['btn_txt'] ) ? $sscb_options['btn_txt'] : SSCB_DEFAULT_BTN_TXT );
+
+  $sscb_options['btn_border'] = isset( $sscb_options['theme'] ) && $sscb_options['theme'] === 'wire'
+    ? ( isset( $sscb_options['btn_border'] ) ? $sscb_options['btn_border'] : ( isset( $sscb_options['btn_txt'] ) ? $sscb_options['btn_txt'] : SSCB_DEFAULT_BTN_BORDER ) )
+    : ( isset( $sscb_options['btn_border'] ) ? $sscb_options['btn_border'] : SSCB_DEFAULT_BTN_BORDER );
+
+  $sscb_options['message'] = isset( $sscb_options['message'] ) ? $sscb_options['message'] : SSCB_DEFAULT_MESSAGE;
+  $sscb_options['dismiss'] = isset( $sscb_options['dismiss'] ) ? $sscb_options['dismiss'] : SSCB_DEFAULT_DISMISS;
+  $sscb_options['link'] = isset( $sscb_options['link'] ) ? $sscb_options['link'] : SSCB_DEFAULT_LINK;
+  $sscb_options['href'] = isset( $sscb_options['href'] ) ? $sscb_options['href'] : SSCB_DEFAULT_HREF;
+
+  return $sscb_options;
+}
+
+/**
+ * Apply WPML Filters
+ *
+ * Applies WPML translation filters to translatable options.
+ *
+ * @since 1.0.2
+ *
+ * @param array $options Options to apply WPML filters to.
+ * @return array Options with WPML filters applied.
+ */
+function sscb_apply_wpml_filters( $options ) {
+  $options['message'] = apply_filters( 'wpml_translate_single_string', $options['message'], 'super-simple-cookie-bar', 'Message' );
+  $options['dismiss'] = apply_filters( 'wpml_translate_single_string', $options['dismiss'], 'super-simple-cookie-bar', 'Dismiss/Accept Text' );
+  $options['link'] = apply_filters( 'wpml_translate_single_string', $options['link'], 'super-simple-cookie-bar', 'Learn More Link Text' );
+  $options['href'] = apply_filters( 'wpml_permalink', $options['href'], apply_filters( 'wpml_current_language', null ), true );
+
+  return $options;
+}
+
+/**
+ * Sanitize Options
+ *
+ * Sanitizes plugin options to ensure they are safe for use.
+ *
+ * @since 1.0.2
+ *
+ * @param array $options Options to sanitize.
+ * @return array Sanitized options.
+ */
+function sscb_sanitize_options( $options ) {
   $theme_allow = array( 'block', 'edgeless', 'classic', 'wire' );
   $pos_allow = array( 'bottom', 'top', 'top-static', 'bottom-left', 'bottom-right' );
-  $sscb_options['theme'] = in_array( $sscb_options['theme'], $theme_allow, true ) ? $sscb_options['theme'] : 'block';
-  $sscb_options['position'] = in_array( $sscb_options['position'], $pos_allow, true ) ? $sscb_options['position'] : 'bottom';
 
-  $sscb_options['bar_bg'] = sanitize_hex_color( $sscb_options['bar_bg'] );
-  $sscb_options['bar_txt'] = sanitize_hex_color( $sscb_options['bar_txt'] );
+  $options['theme'] = in_array( $options['theme'], $theme_allow, true ) ? $options['theme'] : SSCB_DEFAULT_THEME;
+  $options['position'] = in_array( $options['position'], $pos_allow, true ) ? $options['position'] : SSCB_DEFAULT_POSITION;
 
-  if ( isset( $sscb_options['btn_bg'] ) && $sscb_options['btn_bg'] !== 'transparent' ) {
-    $sscb_options['btn_bg'] = sanitize_hex_color( $sscb_options['btn_bg'] );
+  $options['bar_bg'] = sanitize_hex_color( $options['bar_bg'] );
+  $options['bar_txt'] = sanitize_hex_color( $options['bar_txt'] );
+
+  if ( isset( $options['btn_bg'] ) && $options['btn_bg'] !== 'transparent' ) {
+    $options['btn_bg'] = sanitize_hex_color( $options['btn_bg'] );
   }
-  $sscb_options['btn_txt'] = sanitize_hex_color( $sscb_options['btn_txt'] );
-  $sscb_options['btn_border'] = sanitize_hex_color( $sscb_options['btn_border'] );
 
-  $sscb_options['message'] = wp_kses_post( $sscb_options['message'] );
-  $sscb_options['dismiss'] = sanitize_text_field( $sscb_options['dismiss'] );
-  $sscb_options['link'] = sanitize_text_field( $sscb_options['link'] );
-  $sscb_options['href'] = sanitize_url( $sscb_options['href'], array( 'http', 'https' ) );
+  $options['btn_txt'] = sanitize_hex_color( $options['btn_txt'] );
+  $options['btn_border'] = sanitize_hex_color( $options['btn_border'] );
 
-  /**
-    * Build JSON init script
-    */
+  $options['message'] = wp_kses_post( $options['message'] );
+  $options['dismiss'] = sanitize_text_field( $options['dismiss'] );
+  $options['link'] = sanitize_text_field( $options['link'] );
+  $options['href'] = sanitize_url( $options['href'], array( 'http', 'https' ) );
+
+  return $options;
+}
+
+/**
+ * Build JSON Script
+ *
+ * Builds the JSON initialization script for the cookie consent bar.
+ *
+ * @since 1.0.2
+ *
+ * @param array $options Sanitized options for the cookie bar.
+ * @return string JSON initialization script.
+ */
+function sscb_build_json_script( $options ) {
   $content = array(
-    'message' => $sscb_options['message'], // Allow HTML here
-    'dismiss' => $sscb_options['dismiss'],
-    'link'    => isset( $sscb_options['link'] ) ? $sscb_options['link'] : false,
-    'href'    => isset( $sscb_options['href'] ) ? $sscb_options['href'] : '',
+    'message' => $options['message'],
+    'dismiss' => $options['dismiss'],
+    'link'    => $options['link'] ?? false,
+    'href'    => $options['href'] ?? '',
   );
 
-  $script = 'window.cookieconsent.initialise(' . wp_json_encode( array(
+  return 'window.cookieconsent.initialise(' . wp_json_encode( array(
     'palette' => array(
-			'popup' => array(
-				'background' => $sscb_options['bar_bg'],
-				'text'       => $sscb_options['bar_txt'],
-			),
-			'button' => array(
-				'background' => $sscb_options['btn_bg'],
-				'text'       => $sscb_options['btn_txt'],
-				'border'     => $sscb_options['btn_border'],
-			),
-		),
-		'theme'    => $sscb_options['theme'],
-		'position' => $sscb_options['position'] === 'top-static' ? 'top' : $sscb_options['position'],
-		'static'   => $sscb_options['position'] === 'top-static',
-		'content'  => $content,
-	) ) . ');';
-
-  return $script;
+      'popup' => array(
+        'background' => $options['bar_bg'],
+        'text'       => $options['bar_txt'],
+      ),
+      'button' => array(
+        'background' => $options['btn_bg'],
+        'text'       => $options['btn_txt'],
+        'border'     => $options['btn_border'],
+      ),
+    ),
+    'theme'    => $options['theme'],
+    'position' => $options['position'] === 'top-static' ? 'top' : $options['position'],
+    'static'   => $options['position'] === 'top-static',
+    'content'  => $content,
+  ) ) . ');';
 }
