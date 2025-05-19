@@ -13,11 +13,11 @@ A super simple plugin that provides a super simple cookie bar notice.
 
 == Description ==
 
-A super simple wordpress plugin implementing a super simple cookie notice powered by Osana.
+A super simple wordpress plugin implementing a super simple cookie notice powered by Osano.
 
 Features:
 
-* Lightweight and simple cookie notice powered by Osana
+* Lightweight and simple cookie notice powered by Osano
 * Several configurable themes and positions
 * Configurable message, learn more link and button text
 * WPML Support
